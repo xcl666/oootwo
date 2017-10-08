@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>安装Arch Linux笔记 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1，dos硬盘安装一，easybsd安装，grub4dos，添加命令title Install ArchLinuxroot (hd0,0)kernel /vmlinuz archisolabel=archlinuxinitrd /archiso.imgboot二，遇到shellmkdir /tmpmntmount -r -t ntfs /dev/sda1 /tmpmntmodprobe loopl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="安装Arch Linux笔记">
+<meta property="og:url" content="http://yoursite.com/2016/05/26/e5-ae-89-e8-a3-85arch-linux-e7-ac-94-e8-ae-b0/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1，dos硬盘安装一，easybsd安装，grub4dos，添加命令title Install ArchLinuxroot (hd0,0)kernel /vmlinuz archisolabel=archlinuxinitrd /archiso.imgboot二，遇到shellmkdir /tmpmntmount -r -t ntfs /dev/sda1 /tmpmntmodprobe loopl">
+<meta property="og:updated_time" content="2017-10-08T18:38:14.253Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="安装Arch Linux笔记">
+<meta name="twitter:description" content="1，dos硬盘安装一，easybsd安装，grub4dos，添加命令title Install ArchLinuxroot (hd0,0)kernel /vmlinuz archisolabel=archlinuxinitrd /archiso.imgboot二，遇到shellmkdir /tmpmntmount -r -t ntfs /dev/sda1 /tmpmntmodprobe loopl">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-e5-ae-89-e8-a3-85arch-linux-e7-ac-94-e8-ae-b0" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/05/26/e5-ae-89-e8-a3-85arch-linux-e7-ac-94-e8-ae-b0/" class="article-date">
+  <time datetime="2016-05-26T09:54:22.000Z" itemprop="datePublished">2016-05-26</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux-System/">Linux System</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      安装Arch Linux笔记
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1，dos硬盘安装<br>一，easybsd安装，grub4dos，添加命令<br>title Install ArchLinux<br>root (hd0,0)<br>kernel /vmlinuz archisolabel=archlinux<br>initrd /archiso.img<br>boot<br>二，遇到shell<br>mkdir /tmpmnt<br>mount -r -t ntfs /dev/sda1 /tmpmnt<br>modprobe loop<br>losetup /dev/loop6 /tmpmnt/archlinux.iso<br>ln -s /dev/loop6 /dev/disk/by-label/archlinux<br>exit<br>然后正常安装<br>2，uefi，gpt硬盘安装（未成功）（无法安装grub，下次尝试，借鉴winly-efi）<br>使用的是usb安装，使用USBWriter1.3刻录U盘安装<br>提到具体的硬盘分区问题<br>cfdisk<br>第一个分区2M，bios_grub<br>parted set 1 bios_grub on<br>第二个分区1G，efi system<br>parted set 2 boot on<br>注意安装dosfstools<br>pacman -S dosfstools<br>mkfs.fat -F32 /dev/sda2<br>第三个分区/ 10G<br>3,开始安装<br>参考<a href="http://www.cnblogs.com/mad/p/3280041.html" target="_blank" rel="external">http://www.cnblogs.com/mad/p/3280041.html</a><br>图文讲解比较容易理解<br>分区<br>cfdisk<br>格式化<br>mkfs.ext4 /dev/sda1<br>挂载分区<br>mount /dev/sda1 /mnt<br>选择镜像点<br>vim /etc/pacman.d/mirrorlist<br>把163的复制到第一行<br>安装基本系统<br>pacstrap -i /mnt base<br>生成fstab<br>genfstab -U -p /mnt &gt;&gt; /mnt/etc/fstab<br>配置系统<br>vi /etc/locale.gen<br>添加<br>en_US.UTF-8 UTF-8<br>执行<br>locale-gen<br>echo LANG=en_US.UTF-8 &gt; /etc/locale.conf<br>export LANG=en_US.UTF-8<br>起名<br>echo myhostname &gt; /etc/hostname<br>配置网络<br>systemctl enable dhcpd.service<br>设置密码<br>passwd<br>4,安装grub 这个非常重要<br>一，dos硬盘，传统legacy启动方式，安装上面的来直接可以<br>pacman -S grub<br>grub-install –target=i386-pc –recheck /dev/sda<br>grub-mkconfig -o /boot/grub/grub.cfg<br>二，gpt硬盘，UEFI启动方式，按照下面的来安装（–boot-directory=/boot/EFI ）<br>mkdir /mnt/boot/EFI<br>mount /dev/sda2 /mnt/boot/EFI<br>grub-install –target=x86_64-efi –efi-directory=/boot –bootloader-id=grub –recheck<br>grub-mkconfig -o /boot/grub/grub.cfg<br>卸载mnt，重启<br>exit<br>umount /mnt<br>shutdown -r now<br>5,安装桌面环境<br>pacman -S xorg-server xorg-server-utils xorg-xinit<br>先看<br>lspci | grep VGA<br>pacman -Ss xf86-video | less<br>pacman -S xf86-video-nv<br>笔记本触摸板驱动<br>pacman -S xf86-input-synaptics<br>测试X环境<br>pacman -S xorg-twm xorg-xclock xterm<br>startx<br>exit<br>pkill X<br>安装xfce4<br>pacman -S lxdm xfce4<br>startxfce4<br>安装字体<br>pacman -S wqy-microhei wqy-zenhei wqy-bitmapfont<br>添加一个用户<br>pacman -S sudo<br>useradd -m yourname<br>passwd yourname<br>然后把该用户添加到一些组：　audio disk locate network optical power storage video wheel systemd-journal<br>gpassd -a yourname wheel<br>6,设置xfce4自启动<br>重启<br>echo “exec startxfce4” &gt;&gt; /home/user/.xinitrc<br>systemctl enable lxdm.service<br>注意：<br>文中提到工具都可以在ftp://oootwo.com中下载。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/05/26/e5-ae-89-e8-a3-85arch-linux-e7-ac-94-e8-ae-b0/" data-id="cj8j3elej0004sly7g2d3hbku" class="article-share-link">Partager</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/05/26/putty-e5-92-8cssh-e5-85-8d-e5-af-86-e7-a0-81-e7-99-bb-e5-bd-95linux/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Récent</strong>
+      <div class="article-nav-title">
+        
+          putty和ssh免密码登录linux
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Catégories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Arch-Linux-Tips/">Arch Linux Tips</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Base-Linux-Unix-System-Environment/">Base Linux/Unix System Environment</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/LAMP/">LAMP</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux-Server/">Linux Server</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux-System/">Linux System</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/PC-Hardware/">PC Hardware</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Windows/">Windows</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-language/">computer_language</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Articles récents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/10/09/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2017/10/08/git-e7-ae-80-e5-8d-95-e4-bd-bf-e7-94-a8-e8-af-b4-e6-98-8e-e5-92-8cgit-push-e6-97-a0-e5-af-86-e7-a0-81-e6-8e-a8-e9-80-81/">git简单使用说明和git push无密码推送</a>
+          </li>
+        
+          <li>
+            <a href="/2017/10/02/e6-8b-af-e6-95-91-e6-97-a0-e6-b3-95-e5-90-af-e5-8a-a8linux-e7-9a-84-e6-96-b9-e6-b3-95-ef-bc-8c-e8-bf-9b-e5-85-a5grub/">拯救无法启动linux的方法，进入grub</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/24/install-sass-compass-on-debian/">Install Sass &amp; Compass on debian</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/05/how-to-make-the-wordpresss-article-with-summary/">How to make the wordpress&#39;s article with summary?</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 John Doe<br>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

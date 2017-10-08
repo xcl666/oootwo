@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>How to upgrade Debian 8 Jessie to Debian 9 Stretch | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Objective This article explains a system upgrade procedure from Debian 8 Jessie Linux to Debian 9 Stretch.What’s New Apart from the up to date Linux kernel, Stretch comes with a considerable amount of">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How to upgrade Debian 8 Jessie to Debian 9 Stretch">
+<meta property="og:url" content="http://yoursite.com/2017/08/21/how-to-upgrade-debian-8-jessie-to-debian-9-stretch/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Objective This article explains a system upgrade procedure from Debian 8 Jessie Linux to Debian 9 Stretch.What’s New Apart from the up to date Linux kernel, Stretch comes with a considerable amount of">
+<meta property="og:updated_time" content="2017-10-08T18:38:14.253Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="How to upgrade Debian 8 Jessie to Debian 9 Stretch">
+<meta name="twitter:description" content="Objective This article explains a system upgrade procedure from Debian 8 Jessie Linux to Debian 9 Stretch.What’s New Apart from the up to date Linux kernel, Stretch comes with a considerable amount of">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-how-to-upgrade-debian-8-jessie-to-debian-9-stretch" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/08/21/how-to-upgrade-debian-8-jessie-to-debian-9-stretch/" class="article-date">
+  <time datetime="2017-08-21T03:59:04.000Z" itemprop="datePublished">2017-08-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux-Server/">Linux Server</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      How to upgrade Debian 8 Jessie to Debian 9 Stretch
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Objective</p>
+<p>This article explains a system upgrade procedure from Debian 8 Jessie Linux to Debian 9 Stretch.<br>What’s New</p>
+<p>Apart from the up to date Linux kernel, Stretch comes with a considerable amount of new and updated software as well as a number of packages had been rendered obsolete:</p>
+<p>This new release of Debian again comes with a lot more software than its predecessor jessie; the distribution includes over 15346 new packages, for a total of over 51687 packages. Most of the software in the distribution has been updated: over 29859 software packages (this is 57% of all packages in jessie). Also, a significant number of packages (over 6739, 13% of the packages in jessie) have for various reasons been removed from the distribution.<br>SOURCE: debian.org<br>Preparations</p>
+<p>Given that the Debian is an extremely robust Linux distribution, combined with the fact that there is nothing certain in life, the chances are, that after the upgrade you may end up with a broken system. Therefore, it is necessary to point out that no system upgrade is bulletproof and you should discuss, prepare and possibly test any proper failover or recovery process prior the proposed system upgrade to Debian Stretch. The rule of thumb is, the less software installed on your system, the higher chance for a successful upgrade.</p>
+<p>The chances for a successful and fully functional upgrade are decreased by a number of 3rd-party packages installed on your current system. From this reason, remove any obsolete standard repository and 3rd-party software before you attempt the upgrade. The command which might be helpful here is:</p>
+<h1 id="aptitude-search-‘-o’"><a href="#aptitude-search-‘-o’" class="headerlink" title="aptitude search ‘~o’"></a>aptitude search ‘~o’</h1><p>The above command will list all packages which are no longer in a standard repository list since they were removed; thus they were rendered obsolete, or the packages were installed manually.</p>
+<p>Perform a full backup of data and manual configuration files residing on your current system. For example, these may include but not limited to user home directories, databases, websites, etc. In case you run Debian Linux virtually take a snapshot just in case something goes wrong during the Stretch upgrade.</p>
+<p>Warning: MariaDB replaces MySQL database in Debian 9 Stretch. This introduces a new database binary data file format which is not backwards compatible with your current ( Debian 8 Jessie ) database format. During the upgrade your databases will be upgraded automatically. However, when you run into some issues during or after the upgrade, you will not be able revert back! From this reason it is important to backup all your current databases before you proceed with a Debian 9 Stretch upgrade!<br>REFERENCE: debian.org<br>Jessie Full Upgrade</p>
+<p>Before we move on with the upgrade, let’s fully upgrade our current Debian Jessie system:</p>
+<h1 id="apt-get-update"><a href="#apt-get-update" class="headerlink" title="apt-get update"></a>apt-get update</h1><h1 id="apt-get-upgrade"><a href="#apt-get-upgrade" class="headerlink" title="apt-get upgrade"></a>apt-get upgrade</h1><h1 id="apt-get-dist-upgrade"><a href="#apt-get-dist-upgrade" class="headerlink" title="apt-get dist-upgrade"></a>apt-get dist-upgrade</h1><p>If everything went smoothly, perform database sanity and consistency checks for partially installed, missing and obsolete packages:</p>
+<h1 id="dpkg-C"><a href="#dpkg-C" class="headerlink" title="dpkg -C"></a>dpkg -C</h1><p>If no issues are reported, check what packages are held back:</p>
+<h1 id="apt-mark-showhold"><a href="#apt-mark-showhold" class="headerlink" title="apt-mark showhold"></a>apt-mark showhold</h1><p>Packages On Hold will not be upgraded, which may cause inconsistencies after Stretch upgrade. Before you move to the next part, it is recommended to fix all issues produced by both above commands.<br>Update Package Repository to Debian Stretch</p>
+<p>Now, that we have a current system fully upgraded, it is time to resynchronize the package index files with new Debian Stretch sources. This is done by editing /etc/apt/sources.list file to include Debian stretch package repository. First, make a backup the current /etc/apt/sources.list:</p>
+<h1 id="cp-etc-apt-sources-list-etc-apt-sources-list-backup"><a href="#cp-etc-apt-sources-list-etc-apt-sources-list-backup" class="headerlink" title="cp /etc/apt/sources.list /etc/apt/sources.list_backup"></a>cp /etc/apt/sources.list /etc/apt/sources.list_backup</h1><p>Execute apt edit-sources or use your favourite text editor e.g., VIM to modify a current /etc/apt/sources.list file to include stretch repositories. Simply update keyword jessie to stretch.</p>
+<p>Example:<br>FROM JESSIE<br>deb <a href="http://httpredir.debian.org/debian" target="_blank" rel="external">http://httpredir.debian.org/debian</a> jessie main<br>deb <a href="http://httpredir.debian.org/debian" target="_blank" rel="external">http://httpredir.debian.org/debian</a> jessie-updates main<br>deb <a href="http://security.debian.org" target="_blank" rel="external">http://security.debian.org</a> jessie/updates main<br>TO STRETCH<br>deb <a href="http://httpredir.debian.org/debian" target="_blank" rel="external">http://httpredir.debian.org/debian</a> stretch main<br>deb <a href="http://httpredir.debian.org/debian" target="_blank" rel="external">http://httpredir.debian.org/debian</a> stretch-updates main<br>deb <a href="http://security.debian.org" target="_blank" rel="external">http://security.debian.org</a> stretch/updates main<br>Alternatively, use a sed command to automate this tedious task:</p>
+<h1 id="sed-i-‘s-jessie-stretch-g’-etc-apt-sources-list"><a href="#sed-i-‘s-jessie-stretch-g’-etc-apt-sources-list" class="headerlink" title="sed -i ‘s/jessie/stretch/g’ /etc/apt/sources.list"></a>sed -i ‘s/jessie/stretch/g’ /etc/apt/sources.list</h1><p>Once the above /etc/apt/sources.list file edit is completed, use apt-get command to update packages index:</p>
+<h1 id="apt-get-update-1"><a href="#apt-get-update-1" class="headerlink" title="apt-get update"></a>apt-get update</h1><p>Upgrade to Debian Stretch Simulation</p>
+<p>Before we hit the UPGRADE button, let’s use apt command to see a preview of what we are facing. To do this execute apt list –upgradable command in order to get a quick survey of the number of packages to be installed, updated and removed without affecting the system.</p>
+<h1 id="apt-list-–upgradable"><a href="#apt-list-–upgradable" class="headerlink" title="apt list –upgradable"></a>apt list –upgradable</h1><p>Upgrade to Debian Stretch</p>
+<p>We have come to the most exciting part, which is the actual Jessie upgrade to Debian Stretch system. During the upgrade you may be asked:</p>
+<p>There are services installed on your system which need to be restarted when certain libraries, such as libpam, libc, and libssl, are upgraded. Since these restarts may cause interruptions of service for the system, you will normally be prompted on each upgrade for the list of services you wish to restart. You can choose this option to avoid being prompted; instead, all necessary restarts will be done for you automatically so you can avoid being asked questions on each library upgrade.</p>
+<p>Restart services during package upgrades without asking?<br>The choice is about whether you wish the system to restart your services automatically during the system upgrade or you wish to do it manually or after the system is fully upgrade to Stretch. When ready, execute the bellow commands to commence the Debian Stretch upgrade process:</p>
+<h1 id="apt-get-upgrade-1"><a href="#apt-get-upgrade-1" class="headerlink" title="apt-get upgrade"></a>apt-get upgrade</h1><h1 id="apt-get-dist-upgrade-1"><a href="#apt-get-dist-upgrade-1" class="headerlink" title="apt-get dist-upgrade"></a>apt-get dist-upgrade</h1><p>At this stage you should have your Jessie Debian Linux system fully upgraded to Debian Stretch. Follow, this guide to check your current Debian version. Once again check for obsolete packages so there are no surprises down the track:</p>
+<h1 id="aptitude-search-‘-o’-1"><a href="#aptitude-search-‘-o’-1" class="headerlink" title="aptitude search ‘~o’"></a>aptitude search ‘~o’</h1><p>Congratulations to your fully upgraded Debian 9 Stretch Linux system.</p>
+<p>&nbsp;</p>
+<p>From:   <a href="https://linuxconfig.org/how-to-upgrade-debian-8-jessie-to-debian-9-stretch" target="_blank" rel="external">https://linuxconfig.org/how-to-upgrade-debian-8-jessie-to-debian-9-stretch</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/08/21/how-to-upgrade-debian-8-jessie-to-debian-9-stretch/" data-id="cj8j3eley000lsly7f02l3zb2" class="article-share-link">Partager</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/08/31/run-javascript-from-command-line-in-linux/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Récent</strong>
+      <div class="article-nav-title">
+        
+          Run JavaScript from command line in Linux
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/08/17/how-to-install-java-8-jdkjre-8u131-on-debian-8-7-via-ppa/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Ancien</strong>
+      <div class="article-nav-title">How to Install JAVA 8 (JDK/JRE 8u131) on Debian 8 &amp; 7 via PPA</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Catégories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Arch-Linux-Tips/">Arch Linux Tips</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Base-Linux-Unix-System-Environment/">Base Linux/Unix System Environment</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/LAMP/">LAMP</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux-Server/">Linux Server</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux-System/">Linux System</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/PC-Hardware/">PC Hardware</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Windows/">Windows</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-language/">computer_language</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Articles récents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/10/09/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2017/10/08/git-e7-ae-80-e5-8d-95-e4-bd-bf-e7-94-a8-e8-af-b4-e6-98-8e-e5-92-8cgit-push-e6-97-a0-e5-af-86-e7-a0-81-e6-8e-a8-e9-80-81/">git简单使用说明和git push无密码推送</a>
+          </li>
+        
+          <li>
+            <a href="/2017/10/02/e6-8b-af-e6-95-91-e6-97-a0-e6-b3-95-e5-90-af-e5-8a-a8linux-e7-9a-84-e6-96-b9-e6-b3-95-ef-bc-8c-e8-bf-9b-e5-85-a5grub/">拯救无法启动linux的方法，进入grub</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/24/install-sass-compass-on-debian/">Install Sass &amp; Compass on debian</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/05/how-to-make-the-wordpresss-article-with-summary/">How to make the wordpress&#39;s article with summary?</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 John Doe<br>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
